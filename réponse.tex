@@ -1,0 +1,114 @@
+\documentclass[a4paper,10pt]{article} % type, taille police
+
+\usepackage[utf8]{inputenc} % encodage
+\usepackage[T1]{fontenc} % encodage
+\usepackage[french]{babel} % gestion du français
+\usepackage{amssymb} % symboles mathématiques
+\usepackage{textcomp} % flèche,  intervalle
+\usepackage{stmaryrd} % intervalle entiers
+
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry} % marges
+\usepackage[hidelinks]{hyperref} % sommaire interactif dans un pdf
+\usepackage[nottoc, notlof, notlot]{tocbibind} % affichage des références dans la table des matières (?)
+\usepackage{float} % placement des figures
+\usepackage[toc,page]{appendix} % ajout d'annexes
+\usepackage{amsthm} % format des déf, prop...
+\usepackage{amsmath} % matrices, ...
+\usepackage{multirow} % fusionner cellules verticalement
+
+\usepackage{tikz} % affichage de schémas
+\usepackage{graphicx} % affichage d'images
+\usepackage{url} % inclure des urls
+\usepackage{bbold} % fonction caractéristique 1
+
+\usepackage{bussproofs} % arbre de preuves
+
+\definecolor{bgreen}{rgb}{0.30,0.70,0}
+
+\theoremstyle{definition} % pas d'italique pour le format des déf, prop...
+\newtheorem{thm}{Théorème} % \begin{thm} \end{thm}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{defi}[thm]{Définition}
+\newtheorem{ex}[thm]{Exemple}
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{rem}[thm]{Remarque}
+\newtheorem{conj}[thm]{Conjecture}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\nr}{\neg_R}
+\newcommand{\Nr}{^{\neg_R}}
+\newcommand{\na}{\neg_A}
+\newcommand{\Na}{^{\neg_A}}
+\newcommand{\ra}{\Rightarrow}
+\newcommand{\pr}{\vdash}
+\newcommand{\nj}{_{NJ}}
+\newcommand{\nk}{_{NK}}
+\newcommand{\pa}{_{PA}}
+\newcommand{\ha}{_{HA}}
+
+\newcommand{\sN}{\text{set }\N_{\infty}}
+\newcommand{\pS}{\text{proj1\_sig }}
+
+%#############################################################################################################%
+%#############################################################################################################%
+%#############################################################################################################%
+
+\title{DM3 - Preuves sur ordinateur \\ Omniscience}
+\author{ {\Large Yassine \textsc{Hamoudi}}}
+\date{25 novembre 2014}
+
+\begin{document}
+
+\maketitle
+
+%#############################################################################################################%
+%#############################################################################################################%
+%#############################################################################################################%
+
+\section{Remarques}
+
+Les questions suivantes n'ont pas été résolues complètement, le code Coq correspondant comporte la tactique \texttt{admit} :
+\begin{itemize}
+ \item Question 4 : une preuve par induction a été essayée mais seule l'étape d'initialisation est démontrée.
+ \item Question 15
+ \item Question 17
+\end{itemize}
+
+
+%#############################################################################################################%
+
+
+\section{Question 10}
+
+On utilise le principe du tiers exclu.
+
+D'après ce principe, on démontre que pour tout élément $x \in \sN$ :
+
+\[ \exists k, \pS x \ k = false \vee \forall k, \pS x \ k = true\]
+
+Considérons un élément $x \in \sN$.
+
+Supposons qu'il existe $k \in \N$ tel que $\pS x \ k = false$. Alors : $\text{min } \pS x \ k = \text{false}$. Donc, d'après la question 6, il existe $p \in \N$ tel que $x = \text{of\_nat } p$.
+
+A l'inverse, si $\forall k, \pS x \ k = true$ alors $x = \omega$.
+
+Ceci démontre que $\N_{\infty} = \text{of\_nat}(\N) \cup \omega$ en logique classique.
+
+%#############################################################################################################%
+
+\section{Question 12}
+
+On considère une énumération sur $\N$ des machines de Turing (chaque entier $n$ représente une machine de Turing notée $M_n$).
+
+Pour tout $n \in \N$, on note $p_n : nat \rightarrow bool$ la fonction constamment vraie si $M_n$ s'arrête sur chacune de ses entrées, ou constamment fausse sinon. Le problème consistant à savoir si $p_n(m)$ est vraie ou faux (quelque soit $m$) est indécidable (il s'agit du problème de l'arrêt).
+
+Supposons qu'il soit possible de prouver que $\N$ est omniscient dans une logique satisfaisant le théorème de disjonction. Alors, par définition de l'omniscience, on prouve que pour tout $n \in \N$ : $\exists m, p_n(m) = faux \vee \forall m, p_n(m) = vraie$. Cela implique, d'après le théorème de disjonction, que pour tout $n \in \N$ on ait une preuve constructive de $\exists m, p_n(m) = faux$ ou de $\forall m, p_n(m) = vraie$. Autrement dit, pour tout $n \in \N$ on parvient à décider si $M_n$ s'arrête sur chacune de ses entrées ou non, ce qui est impossible.
+
+Il n'est donc pas possible de prouver que $\N$ est omniscient dans une logique satisfaisant le théorème de disjonction.
+
+%#############################################################################################################%
+%#############################################################################################################%
+%#############################################################################################################%
+\end{document}
